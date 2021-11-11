@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-overlay class="min-vh-100" :show="isLoading" spinner-variant="success">
-      <b-card class="col-10 mx-auto">
+      <b-card class="col-10 mx-auto mt-3">
         <b-card-header header-bg-variant="dark">
           <b-card-title class="text-light">Bitcoin Price</b-card-title>
         </b-card-header>
@@ -94,9 +94,10 @@ export default Vue.extend({
   },
   async mounted(): Promise<void> {
     try {
+      // WEB APIからビットコインレートを取得する
       const res: AxiosDefaults = await axios.get("https://api.coindesk.com/v1/bpi/currentprice.json");
 
-      // overlayの動きを見るために遅い回線をシミュレートする(下の処理で5秒間止まる)
+      // overlayの動きを見るために遅い回線をシミュレートする(下の処理で3秒間止まる)
       const _sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
       await _sleep(3000);
 
@@ -110,16 +111,24 @@ export default Vue.extend({
     }
   },
   methods: {
+    /**
+     * セルの色制御を行う
+     * @param rete ビットコインレート
+     */
     changeColor: (rate: number): string => {
+      // 60000以上は緑色に
       if (rate >= 60000) {
         return "success";
+      // 50000未満は黄色に
       } else if (rate < 50000) {
         return "warning";
+      // それ以外は無色
       } else {
         return "";
       }
     },
-    openModal() {
+    /** モーダルを表示する */
+    openModal(): void {
       this.isShowModal = true;
     },
   },
@@ -130,12 +139,14 @@ export default Vue.extend({
   },
 });
 
+/** セレクトボックスのアイテム */
 const options = [
   { text: "PG", val: "PG" },
   { text: "SE", val: "SE" },
   { text: "PM", val: "PM" },
 ];
 
+/** ラジオボタンのアイテム */
 const radioOptions = [
   { text: "Man", val: 0 },
   { text: "Woman", val: 1 },
