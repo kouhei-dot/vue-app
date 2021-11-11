@@ -7,7 +7,7 @@
         </b-card-header>
         <b-card-body>
           <div class="container">
-            <b-table-simple bordered hover responsive small>
+            <b-table-simple hover responsive small>
               <b-thead head-variant="dark">
                 <b-th>Currency</b-th>
                 <b-th>Rate</b-th>
@@ -18,6 +18,12 @@
                   <b-td :variant="changeColor(val.rate_float)">{{ val.rate_float | formatRate }}</b-td>
                 </b-tr>
               </b-tbody>
+              <b-tfoot>
+                <b-tr variant="info">
+                  <b-th>Total</b-th>
+                  <b-th>{{ getSum | formatRate}}</b-th>
+                </b-tr>
+              </b-tfoot>
             </b-table-simple>
           </div>
         </b-card-body>
@@ -58,10 +64,6 @@
 import Vue from "vue";
 import axios, { AxiosDefaults } from "axios";
 
-type CoinRes = {
-  bpi: Bpi;
-};
-
 type Bpi = {
   USD: Currency;
   GBP: Currency;
@@ -80,7 +82,7 @@ export default Vue.extend({
   name: "BitCoin",
   data: () => {
     return {
-      bpi: {} as CoinRes,
+      bpi: {} as Bpi,
       isLoading: true,
       isShowModal: false,
       form: {
@@ -101,7 +103,7 @@ export default Vue.extend({
       const _sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
       await _sleep(3000);
 
-      const bpi: CoinRes = res.data.bpi;
+      const bpi: Bpi = res.data.bpi;
       this.bpi = bpi;
     } catch (err) {
       console.log("Error...");
@@ -109,6 +111,15 @@ export default Vue.extend({
       // ローディングを終了する
       this.isLoading = false;
     }
+  },
+  computed: {
+    getSum(): number {
+      // APIからデータ取得前に計算がされないようにオブジェクトの空判定をする
+      if (!Object.keys(this.bpi).length) return 0;
+      // レート合計を算出する
+      const rates = Object.values(this.bpi).map((currency) => currency.rate_float);
+      return rates.reduce((prev, cur) => prev + cur);
+    },
   },
   methods: {
     /**
