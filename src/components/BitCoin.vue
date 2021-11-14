@@ -15,13 +15,12 @@
               <b-tbody v-cloak>
                 <b-tr v-for="(val, key) in bpi" :key="key">
                   <b-td>{{ val.code }}</b-td>
-                  <b-td :variant="changeColor(val.rate_float)">{{ val.rate_float | formatRate }}</b-td>
+                  <b-td class="text-right" :variant="changeColor(val.rate_float)">{{ val.rate_float | formatRate }}</b-td>
                 </b-tr>
               </b-tbody>
               <b-tfoot>
-                <b-tr variant="info">
-                  <b-th>Total</b-th>
-                  <b-th>{{ getSum | formatRate}}</b-th>
+                <b-tr>
+                  <b-th colspan="2" class="text-right" variant="secondary">Total : {{ getSum | formatRate}}</b-th>
                 </b-tr>
               </b-tfoot>
             </b-table-simple>
