@@ -2,8 +2,8 @@
   <div>
     <b-overlay class="min-vh-100" :show="isLoading" spinner-variant="success">
       <b-card class="col-10 mx-auto mt-3">
-        <b-card-header header-bg-variant="dark">
-          <b-card-title class="text-light">Bitcoin Price</b-card-title>
+        <b-card-header header-bg-variant="dark" header-text-variant="light">
+          <b-card-title class="my-auto">Bitcoin Price</b-card-title>
         </b-card-header>
         <b-card-body>
           <div class="container">
