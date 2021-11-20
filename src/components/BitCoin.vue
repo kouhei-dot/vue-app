@@ -7,7 +7,7 @@
         </b-card-header>
         <b-card-body>
           <div class="container">
-            <b-table-simple hover responsive small>
+            <b-table-simple hover responsive>
               <b-thead head-variant="dark">
                 <b-th>Currency</b-th>
                 <b-th>Rate</b-th>
