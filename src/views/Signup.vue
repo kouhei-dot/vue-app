@@ -8,20 +8,31 @@
       header-class="font-weight-bold"
     >
       <b-card-body>
-        <b-form>
-          <b-form-group label="メールアドレス">
-            <b-form-input type="text" v-model="email" />
-          </b-form-group>
-          <b-form-group label="パスワード">
-            <b-form-input type="password" v-model="password" />
-          </b-form-group>
-          <b-form-group label="パスワード(確認)">
-            <b-form-input type="password" v-model="password" />
-          </b-form-group>
-          <div class="d-flex justify-content-center">
-            <b-button class="col-4" variant="success" pill @click="signup">登録</b-button>
-          </div>
-        </b-form>
+        <validation-observer v-slot="{ handleSubmit }">
+          <b-form @submit.prevent="handleSubmit(signup)">
+            <validation-provider name="メールアドレス" :rules="{ required: true, email: true }" v-slot="context">
+              <b-form-group label="メールアドレス">
+                <b-form-input type="text" v-model="email" :state="context | validState" />
+                <b-form-invalid-feedback>{{ context.errors[0] }}</b-form-invalid-feedback>
+              </b-form-group>
+            </validation-provider>
+            <validation-provider name="パスワード" :rules="{ required: true }" v-slot="context">
+              <b-form-group label="パスワード">
+                <b-form-input type="password" v-model="password" :state="context | validState" />
+                <b-form-invalid-feedback>{{ context.errors[0] }}</b-form-invalid-feedback>
+              </b-form-group>
+            </validation-provider>
+            <validation-provider name="パスワード(確認)" :rules="{ required: true }" v-slot="context">
+              <b-form-group label="パスワード(確認)">
+                <b-form-input type="password" v-model="passwordConfirm" :state="context | validState" />
+                <b-form-invalid-feedback>{{ context.errors[0] }}</b-form-invalid-feedback>
+              </b-form-group>
+            </validation-provider>
+            <div class="d-flex justify-content-center">
+              <b-button class="col-4" type="submit" variant="success" pill>登録</b-button>
+            </div>
+          </b-form>
+        </validation-observer>
       </b-card-body>
     </b-card>
   </div>
