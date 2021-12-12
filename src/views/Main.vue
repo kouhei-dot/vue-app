@@ -1,17 +1,22 @@
 <template>
   <div class="Main">
-    <BitCoin></BitCoin>
+    <b-card>
+      <b-card-title>
+        <router-link to="/bitcoin">ビットコインレート一覧</router-link>
+      </b-card-title>
+    </b-card>
+    <b-card>
+      <b-card-title>
+        <router-link to="/login">ログイン</router-link>
+      </b-card-title>
+    </b-card>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import BitCoin from '@/components/BitCoin.vue'; // @ is an alias to /src
 
 export default Vue.extend({
   name: 'Main',
-  components: {
-    BitCoin,
-  },
 });
 </script>

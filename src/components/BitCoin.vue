@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bit-coin">
     <b-overlay class="min-vh-100" :show="isLoading" spinner-variant="success">
       <b-card class="col-10 mx-auto mt-3">
         <b-card-header header-bg-variant="dark" header-text-variant="light">
@@ -167,5 +167,8 @@ const radioOptions = [
 <style scoped>
 [v-cloak] {
   display: none;
+}
+.bit-coin {
+  text-align: center;
 }
 </style>
