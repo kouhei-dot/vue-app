@@ -19,7 +19,7 @@
             <b-form-input type="password" v-model="password" />
           </b-form-group>
           <div class="d-flex justify-content-center">
-            <b-button class="col-4" variant="success" pill>登録</b-button>
+            <b-button class="col-4" variant="success" pill @click="signup">登録</b-button>
           </div>
         </b-form>
       </b-card-body>
@@ -29,6 +29,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { CognitoIdentity } from 'aws-sdk';
+
 export default Vue.extend({
   name: 'Signup',
   data() {
@@ -37,6 +39,12 @@ export default Vue.extend({
       password: '',
       passwordConfirm: '',
     };
+  },
+  methods: {
+    async signup() {
+      const cognito = new CognitoIdentity();
+      cognito.createIdentityPool();
+    },
   },
 });
 </script>
