@@ -63,11 +63,11 @@
 import Vue from "vue";
 import axios, { AxiosDefaults } from "axios";
 
-type Bpi = {
+interface Bpi {
   USD: Currency;
   GBP: Currency;
   EUR: Currency;
-};
+}
 
 type Currency = {
   code: string;
