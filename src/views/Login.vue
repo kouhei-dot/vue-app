@@ -59,7 +59,17 @@ export default Vue.extend({
       await this.$router.push('/signup');
     },
     async login() {
-      alert('Login!!');
+      const auth = getAuth(firebase);
+      try {
+        const res = await signInWithEmailAndPassword(auth, this.email, this.password);
+        if (res.user) {
+          this.$router.push('/top');
+          this.$emit('login', 'ログインしました');
+        }
+      } catch (e) {
+        console.log(e);
+        this.isError = true;
+      }
     },
   },
 });

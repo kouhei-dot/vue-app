@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header @logout="showToast"></Header>
-    <router-view @signup="showToast" />
+    <router-view @signup="showToast" @login="showToast" />
   </div>
 </template>
 
