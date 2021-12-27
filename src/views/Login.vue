@@ -1,17 +1,18 @@
 <template>
   <div class="col-6 m-auto">
     <b-card
-      class="my-4"
+      class="mt-4"
       header="ログイン"
       header-bg-variant="dark"
       header-text-variant="light"
       header-class="font-weight-bold"
     >
       <b-card-body>
+        <b-alert v-model="isError" fade variant="info">ログインに失敗しました</b-alert>
         <div class="d-flex flex-row-reverse">
           <b-button class="col-3" variant="success" pill @click="toSignup">新規登録</b-button>
         </div>
-        <validation-observer v-slot="{ handleSubmit }">
+        <validation-observer v-slot="{ handleSubmit, invalid }">
           <b-form @submit.prevent="handleSubmit(login)">
             <validation-provider name="メールアドレス" :rules="{ required: true, email: true }" v-slot="context">
               <b-form-group label="メールアドレス">
@@ -26,7 +27,15 @@
               </b-form-group>
             </validation-provider>
             <div class="d-flex justify-content-center">
-              <b-button class="col-4" type="submit" variant="success" pill>ログイン</b-button>
+              <b-button
+                class="col-4"
+                type="submit"
+                :variant="invalid ? 'secondary' : 'success'"
+                :disabled="invalid"
+                pill
+              >
+                ログイン
+              </b-button>
             </div>
           </b-form>
         </validation-observer>

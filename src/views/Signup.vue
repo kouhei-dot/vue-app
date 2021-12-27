@@ -61,8 +61,14 @@ export default Vue.extend({
   },
   methods: {
     async signup() {
-      const cognito = new CognitoIdentity();
-      cognito.createIdentityPool();
+      const auth = getAuth(firebase);
+      const res = await createUserWithEmailAndPassword(auth, this.email, this.password);
+      if (res.user) {
+        this.$router.push('/top');
+        this.$emit('signup', '登録が完了しました');
+      } else {
+        this.isError = true;
+      }
     },
   },
 });
