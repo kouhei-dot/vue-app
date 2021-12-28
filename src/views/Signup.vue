@@ -16,13 +16,31 @@
                 <b-form-invalid-feedback>{{ context.errors[0] }}</b-form-invalid-feedback>
               </b-form-group>
             </validation-provider>
-            <validation-provider name="パスワード" :rules="{ required: true, min: 8 }" v-slot="context">
+            <validation-provider
+              vid="comfirmation"
+              name="パスワード"
+              :rules="{
+                required: true,
+                min: 8,
+                regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d])[a-zA-Z\d]*$/,
+              }"
+              v-slot="context"
+            >
               <b-form-group label="パスワード">
                 <b-form-input type="password" v-model="password" :state="context | validState" />
                 <b-form-invalid-feedback>{{ context.errors[0] }}</b-form-invalid-feedback>
               </b-form-group>
             </validation-provider>
-            <validation-provider name="パスワード(確認)" :rules="{ required: true, min: 8 }" v-slot="context">
+            <validation-provider
+              name="パスワード(確認)"
+              :rules="{
+                required: true,
+                min: 8,
+                regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d])[a-zA-Z\d]*$/,
+                confirmed: 'comfirmation',
+              }"
+              v-slot="context"
+            >
               <b-form-group label="パスワード(確認)">
                 <b-form-input type="password" v-model="passwordConfirm" :state="context | validState" />
                 <b-form-invalid-feedback>{{ context.errors[0] }}</b-form-invalid-feedback>

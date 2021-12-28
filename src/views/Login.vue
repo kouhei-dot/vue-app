@@ -20,7 +20,15 @@
                 <b-form-invalid-feedback>{{ context.errors[0] }}</b-form-invalid-feedback>
               </b-form-group>
             </validation-provider>
-            <validation-provider name="パスワード" :rules="{ required: true }" v-slot="context">
+            <validation-provider
+              name="パスワード"
+              :rules="{
+                required: true,
+                regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d])[a-zA-Z\d]*$/,
+                min: 8
+              }"
+              v-slot="context"
+            >
               <b-form-group label="パスワード">
                 <b-form-input type="password" v-model="password" :state="context | validState" />
                 <b-form-invalid-feedback>{{ context.errors[0] }}</b-form-invalid-feedback>
