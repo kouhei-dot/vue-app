@@ -7,7 +7,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { firebase } from '@/plugin/firebase'
-import { getAuth } from '@firebase/auth'
+import { getAuth,  } from '@firebase/auth'
 
 export default Vue.extend({
   name: 'Header',
@@ -15,7 +15,11 @@ export default Vue.extend({
     return { isLogin: false };
   },
   beforeMount() {
-    getAuth(firebase).onAuthStateChanged((user) => this.isLogin = user ? true : false);
+    getAuth(firebase).onAuthStateChanged((user) => {
+      if (user && user.emailVerified) {
+        this.isLogin = true;
+      }
+    });
   },
   methods: {
     /** ログアウト処理 */

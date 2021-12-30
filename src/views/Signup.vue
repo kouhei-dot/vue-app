@@ -66,7 +66,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { CognitoIdentity } from 'aws-sdk';
+import { firebase } from '@/plugin/firebase';
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 
 export default Vue.extend({
   name: 'Signup',
@@ -80,11 +81,21 @@ export default Vue.extend({
   methods: {
     async signup() {
       const auth = getAuth(firebase);
-      const res = await createUserWithEmailAndPassword(auth, this.email, this.password);
-      if (res.user) {
-        this.$router.push('/top');
-        this.$emit('signup', '登録が完了しました');
-      } else {
+      try {
+        const res = await createUserWithEmailAndPassword(auth, this.email, this.password);
+        if (res.user) {
+          const domain = document.domain;
+          const port = window.location.port;
+          const actionSetting = { url: `http://${domain}:${port}/top` }
+          await sendEmailVerification(res.user, actionSetting);
+          await this.$bvModal.msgBoxOk('入力されたメールアドレス宛にメールを送信しました。', {
+            title: '登録まであと少しです!',
+            okVariant: 'success'
+          });
+        } else {
+          this.isError = true;
+        }
+      } catch (e) {
         this.isError = true;
       }
     },
