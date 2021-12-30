@@ -18,6 +18,8 @@ export default Vue.extend({
     getAuth(firebase).onAuthStateChanged((user) => {
       if (user && user.emailVerified) {
         this.isLogin = true;
+      } else {
+        this.isLogin = false;
       }
     });
   },
