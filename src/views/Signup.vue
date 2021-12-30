@@ -76,6 +76,7 @@ export default Vue.extend({
       email: '',
       password: '',
       passwordConfirm: '',
+      isError: false,
     };
   },
   methods: {

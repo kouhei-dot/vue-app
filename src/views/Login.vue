@@ -54,12 +54,16 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { firebase } from '@/plugin/firebase'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+
 export default Vue.extend({
   name: 'Login',
   data() {
     return {
       email: '',
       password: '',
+      isError: false,
     };
   },
   methods: {

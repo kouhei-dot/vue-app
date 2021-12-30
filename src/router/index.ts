@@ -9,8 +9,7 @@ Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/',
-    name: 'Main',
+    path: '/top',
     component: Main,
   },
   {
@@ -24,6 +23,10 @@ const routes: Array<RouteConfig> = [
   {
     path: '/signup',
     component: Signup,
+  },
+  {
+    path: '/',
+    component: Login,
   },
 ]
 
