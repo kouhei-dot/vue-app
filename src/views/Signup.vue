@@ -16,13 +16,31 @@
                 <b-form-invalid-feedback>{{ context.errors[0] }}</b-form-invalid-feedback>
               </b-form-group>
             </validation-provider>
-            <validation-provider name="パスワード" :rules="{ required: true, min: 8 }" v-slot="context">
+            <validation-provider
+              vid="comfirmation"
+              name="パスワード"
+              :rules="{
+                required: true,
+                min: 8,
+                regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d])[a-zA-Z\d]*$/,
+              }"
+              v-slot="context"
+            >
               <b-form-group label="パスワード">
                 <b-form-input type="password" v-model="password" :state="context | validState" />
                 <b-form-invalid-feedback>{{ context.errors[0] }}</b-form-invalid-feedback>
               </b-form-group>
             </validation-provider>
-            <validation-provider name="パスワード(確認)" :rules="{ required: true, min: 8 }" v-slot="context">
+            <validation-provider
+              name="パスワード(確認)"
+              :rules="{
+                required: true,
+                min: 8,
+                regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d])[a-zA-Z\d]*$/,
+                confirmed: 'comfirmation',
+              }"
+              v-slot="context"
+            >
               <b-form-group label="パスワード(確認)">
                 <b-form-input type="password" v-model="passwordConfirm" :state="context | validState" />
                 <b-form-invalid-feedback>{{ context.errors[0] }}</b-form-invalid-feedback>
@@ -48,7 +66,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { CognitoIdentity } from 'aws-sdk';
+import { firebase } from '@/plugin/firebase';
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 
 export default Vue.extend({
   name: 'Signup',
@@ -57,12 +76,29 @@ export default Vue.extend({
       email: '',
       password: '',
       passwordConfirm: '',
+      isError: false,
     };
   },
   methods: {
     async signup() {
-      const cognito = new CognitoIdentity();
-      cognito.createIdentityPool();
+      const auth = getAuth(firebase);
+      try {
+        const res = await createUserWithEmailAndPassword(auth, this.email, this.password);
+        if (res.user) {
+          const domain = document.domain;
+          const port = window.location.port;
+          const actionSetting = { url: `http://${domain}:${port}/top` }
+          await sendEmailVerification(res.user, actionSetting);
+          await this.$bvModal.msgBoxOk('入力されたメールアドレス宛にメールを送信しました。', {
+            title: '登録まであと少しです!',
+            okVariant: 'success'
+          });
+        } else {
+          this.isError = true;
+        }
+      } catch (e) {
+        this.isError = true;
+      }
     },
   },
 });

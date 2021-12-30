@@ -6,7 +6,7 @@
           <b-card-title class="my-auto">Bitcoin Price</b-card-title>
         </b-card-header>
         <b-card-body>
-          <div class="container">
+          <div>
             <b-table-simple hover responsive>
               <b-thead head-variant="dark">
                 <b-th>Currency</b-th>
@@ -26,36 +26,8 @@
             </b-table-simple>
           </div>
         </b-card-body>
-        <b-button variant="success" size="lg" pill @click="openModal">
-          <b-icon icon="check-square"></b-icon> Show Modal
-        </b-button>
       </b-card>
     </b-overlay>
-    <b-modal
-      size="lg"
-      v-model="isShowModal"
-      title="The Modal Sample"
-      header-border-variant="white"
-      button-size="lg"
-      ok-variant="success"
-    >
-      <b-form>
-        <b-form-group label="Name">
-          <b-form-input type="text" v-model="form.name"></b-form-input>
-        </b-form-group>
-        <b-form-group label="Job">
-          <b-form-select :options="options" v-model="form.job"></b-form-select>
-        </b-form-group>
-        <b-form-group label="Gender">
-          <b-form-radio-group
-            :options="genderOptions"
-            text-field="text"
-            value-field="val"
-            v-model="form.gender"
-          ></b-form-radio-group>
-        </b-form-group>
-      </b-form>
-    </b-modal>
   </div>
 </template>
 
@@ -63,11 +35,11 @@
 import Vue from "vue";
 import axios, { AxiosDefaults } from "axios";
 
-type Bpi = {
+interface Bpi {
   USD: Currency;
   GBP: Currency;
   EUR: Currency;
-};
+}
 
 type Currency = {
   code: string;
@@ -84,13 +56,6 @@ export default Vue.extend({
       bpi: {} as Bpi,
       isLoading: true,
       isShowModal: false,
-      form: {
-        name: "",
-        job: "",
-        gender: null,
-      },
-      options: options,
-      genderOptions: radioOptions,
     };
   },
   async mounted(): Promise<void> {
@@ -137,10 +102,6 @@ export default Vue.extend({
         return "";
       }
     },
-    /** モーダルを表示する */
-    openModal(): void {
-      this.isShowModal = true;
-    },
   },
   filters: {
     formatRate: (rate: number): string => {
@@ -148,19 +109,6 @@ export default Vue.extend({
     },
   },
 });
-
-/** セレクトボックスのアイテム */
-const options = [
-  { text: "PG", val: "PG" },
-  { text: "SE", val: "SE" },
-  { text: "PM", val: "PM" },
-];
-
-/** ラジオボタンのアイテム */
-const radioOptions = [
-  { text: "Man", val: 0 },
-  { text: "Woman", val: 1 },
-];
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

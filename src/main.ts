@@ -7,7 +7,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { ValidationObserver, ValidationProvider, extend, localize } from 'vee-validate'
 import ja from 'vee-validate/dist/locale/ja.json'
 import * as rules from 'vee-validate/dist/rules'
-import '@/common/AppFilters'
+import '@/common/appFilters'
 
 // BootstrapVueを使用するための宣言
 Vue.use(BootstrapVue);
