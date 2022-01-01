@@ -87,12 +87,12 @@ export default Vue.extend({
         if (res.user) {
           const domain = document.domain;
           const port = window.location.port;
-          const actionSetting = { url: `http://${domain}:${port}/top` }
+          const actionSetting = { url: `http://${domain}:${port}/` }
           await sendEmailVerification(res.user, actionSetting);
           await this.$bvModal.msgBoxOk('入力されたメールアドレス宛にメールを送信しました。', {
             title: '登録まであと少しです!',
-            okVariant: 'success'
-          });
+            okVariant: 'success',
+          }).then(() => this.$router.push('/'));
         } else {
           this.isError = true;
         }
