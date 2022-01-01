@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import { firebase } from '@/plugin/firebase';
+import Vue from 'vue'
+import { firebase } from '@/plugin/firebase'
 import { getAuth } from 'firebase/auth'
 
 export default Vue.extend({

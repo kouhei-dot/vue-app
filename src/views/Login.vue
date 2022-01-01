@@ -10,7 +10,7 @@
       <b-card-body>
         <b-alert v-model="isError" fade variant="info">ログインに失敗しました</b-alert>
         <div class="d-flex flex-row-reverse">
-          <b-button class="col-3" variant="success" pill @click="toSignup">新規登録</b-button>
+          <app-action-btn class="col-3" @click="toSignup">新規登録</app-action-btn>
         </div>
         <validation-observer v-slot="{ handleSubmit, invalid }">
           <b-form @submit.prevent="handleSubmit(login)">
@@ -36,18 +36,10 @@
             </validation-provider>
             <div class="d-flex justify-content-center">
               <template v-if="isLogin">
-                <b-button class="col-4" pill variant="success" @click="$router.push('/top')">トップへ</b-button>
+                <app-action-btn class="col-4" @click="$router.push('/top')">トップへ</app-action-btn>
               </template>
               <template v-else>
-                <b-button
-                  class="col-4"
-                  type="submit"
-                  :variant="invalid ? 'secondary' : 'success'"
-                  :disabled="invalid"
-                  pill
-                >
-                  ログイン
-                </b-button>
+                <app-action-btn type="submit" class="col-4" :invalid="invalid">ログイン</app-action-btn>
               </template>
             </div>
           </b-form>
