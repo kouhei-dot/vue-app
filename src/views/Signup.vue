@@ -47,15 +47,7 @@
               </b-form-group>
             </validation-provider>
             <div class="d-flex justify-content-center">
-              <b-button
-                class="col-4"
-                type="submit"
-                :disabled="invalid"
-                :variant="invalid ? 'secondary' : 'success'"
-                pill
-              >
-                登録
-              </b-button>
+              <app-action-btn type="submit" class="col-4" :invalid="invalid">登録</app-action-btn>
             </div>
           </b-form>
         </validation-observer>

@@ -11,18 +11,6 @@ import { getAuth } from '@firebase/auth'
 
 export default Vue.extend({
   name: 'Header',
-  data() {
-    return { isLogin: false };
-  },
-  beforeMount() {
-    getAuth(firebase).onAuthStateChanged((user) => {
-      if (user && user.emailVerified) {
-        this.isLogin = true;
-      } else {
-        this.isLogin = false;
-      }
-    });
-  },
   methods: {
     /** ログアウト処理 */
     async logout() {
