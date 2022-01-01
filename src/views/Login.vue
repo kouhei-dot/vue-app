@@ -76,7 +76,9 @@ export default Vue.extend({
         const res = await signInWithEmailAndPassword(auth, this.email, this.password);
         if (res.user) {
           this.$router.push('/top');
-          this.$emit('login', 'ログインしました');
+          if (res.user.emailVerified) {
+            this.$emit('login', 'ログインしました');
+          }
         }
       } catch (e) {
         console.log(e);
