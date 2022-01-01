@@ -8,6 +8,7 @@ import { ValidationObserver, ValidationProvider, extend, localize } from 'vee-va
 import ja from 'vee-validate/dist/locale/ja.json'
 import * as rules from 'vee-validate/dist/rules'
 import '@/common/appFilters'
+import mixin from '@/common/appMixin'
 
 // BootstrapVueを使用するための宣言
 Vue.use(BootstrapVue);
@@ -16,6 +17,8 @@ Vue.use(IconsPlugin);
 // 使用するコンポーネントの登録
 Vue.component('validationObserver', ValidationObserver);
 Vue.component('validationProvider', ValidationProvider);
+
+Vue.mixin(mixin);
 
 Vue.config.productionTip = false
 

@@ -35,15 +35,20 @@
               </b-form-group>
             </validation-provider>
             <div class="d-flex justify-content-center">
-              <b-button
-                class="col-4"
-                type="submit"
-                :variant="invalid ? 'secondary' : 'success'"
-                :disabled="invalid"
-                pill
-              >
-                ログイン
-              </b-button>
+              <template v-if="isLogin">
+                <b-button class="col-4" pill variant="success" @click="$router.push('/top')">トップへ</b-button>
+              </template>
+              <template v-else>
+                <b-button
+                  class="col-4"
+                  type="submit"
+                  :variant="invalid ? 'secondary' : 'success'"
+                  :disabled="invalid"
+                  pill
+                >
+                  ログイン
+                </b-button>
+              </template>
             </div>
           </b-form>
         </validation-observer>
