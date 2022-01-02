@@ -1,5 +1,5 @@
 <template>
-  <div class="col-6 m-auto">
+  <div class="col-8 m-auto">
     <b-card
       class="my-4"
       header="新規登録"
@@ -47,7 +47,7 @@
               </b-form-group>
             </validation-provider>
             <div class="d-flex justify-content-center">
-              <app-action-btn type="submit" class="col-4" :invalid="invalid">登録</app-action-btn>
+              <app-action-btn type="submit" :invalid="invalid">登録</app-action-btn>
             </div>
           </b-form>
         </validation-observer>
