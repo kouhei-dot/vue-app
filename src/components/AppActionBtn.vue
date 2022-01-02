@@ -1,5 +1,7 @@
 <template>
   <b-button
+    v-bind="$attrs"
+    v-on="$listeners"
     :disabled="invalid"
     :variant="invalid ? 'secondary' : 'success'"
     pill
