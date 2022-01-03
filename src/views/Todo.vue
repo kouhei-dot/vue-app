@@ -21,7 +21,7 @@
             <b-form-checkbox class="d-inline"></b-form-checkbox>
             {{ todo }}
           </span>
-          <b-icon-x-circle-fill @click="removeTodo(idx)" role="button" scale="1.5" shift-v="-3" />
+          <b-icon-x-circle-fill @click="removeTodo(idx)" role="button" scale="1" shift-v="-3" />
         </div>
       </b-card>
     </transition-group>
@@ -57,5 +57,11 @@ export default Vue.extend({
 }
 .slide-fade-enter-active {
   transition: all .3s ease;
+}
+.bi-x-circle-fill {
+  transition: all .2s  0s ease;
+}
+.bi-x-circle-fill:hover {
+  transform: scale(1.5, 1.5);
 }
 </style>
