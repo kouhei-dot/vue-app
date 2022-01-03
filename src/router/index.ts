@@ -7,6 +7,7 @@ import BitCoin from '@/components/BitCoin.vue'
 import Login from '@/views/Login.vue'
 import Signup from '@/views/Signup.vue'
 import Error from '@/views/Error.vue'
+import Todo from '@/views/Todo.vue'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ const guardFunc = async (_to: Route, _from: Route, next: NavigationGuardNext<Vue
 };
 
 const routes: Array<RouteConfig> = [
+  {
+    path: '/todo',
+    component: Todo,
+    beforeEnter: guardFunc,
+  },
   {
     path: '/top',
     component: Main,
