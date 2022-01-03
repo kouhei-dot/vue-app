@@ -21,7 +21,7 @@
             <b-form-checkbox class="d-inline"></b-form-checkbox>
             {{ todo }}
           </span>
-          <b-icon-x-circle-fill @click="removeTodo(idx)" role="button" scale="1" shift-v="-3" />
+          <b-icon-x-circle-fill @click="removeTodo(idx)" role="button" shift-v="-3" />
         </div>
       </b-card>
     </transition-group>
