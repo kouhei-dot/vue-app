@@ -25,7 +25,7 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-  button {
-    padding: 0.5rem 1.5rem;
-  }
+button {
+  padding: 0.5rem 1.5rem;
+}
 </style>

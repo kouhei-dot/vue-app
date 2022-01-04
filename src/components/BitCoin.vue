@@ -6,25 +6,27 @@
           <b-card-title class="my-auto">Bitcoin Price</b-card-title>
         </b-card-header>
         <b-card-body>
-          <div>
-            <b-table-simple hover responsive>
-              <b-thead head-variant="dark">
-                <b-th>Currency</b-th>
-                <b-th>Rate</b-th>
-              </b-thead>
-              <b-tbody v-cloak>
-                <b-tr v-for="(val, key) in bpi" :key="key">
-                  <b-td>{{ val.code }}</b-td>
-                  <b-td class="text-right" :variant="changeColor(val.rate_float)">{{ val.rate_float | formatRate }}</b-td>
-                </b-tr>
-              </b-tbody>
-              <b-tfoot>
-                <b-tr>
-                  <b-th colspan="2" class="text-right" variant="secondary">Total : {{ getSum | formatRate}}</b-th>
-                </b-tr>
-              </b-tfoot>
-            </b-table-simple>
-          </div>
+          <b-table-simple hover responsive>
+            <b-thead head-variant="dark">
+              <b-th>Currency</b-th>
+              <b-th>Rate</b-th>
+            </b-thead>
+            <b-tbody>
+              <b-tr v-for="(val, key) in bpi" :key="key">
+                <b-td>{{ val.code }}</b-td>
+                <b-td class="text-right" :variant="changeColor(val.rate_float)">
+                  {{ val.rate_float | formatRate }}
+                </b-td>
+              </b-tr>
+            </b-tbody>
+            <b-tfoot>
+              <b-tr>
+                <b-th colspan="2" class="text-right" variant="secondary">
+                  Total : {{ getSum | formatRate}}
+                </b-th>
+              </b-tr>
+            </b-tfoot>
+          </b-table-simple>
         </b-card-body>
       </b-card>
     </b-overlay>
@@ -111,11 +113,7 @@ export default Vue.extend({
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-[v-cloak] {
-  display: none;
-}
 .bit-coin {
   text-align: center;
 }
