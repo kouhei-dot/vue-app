@@ -25,6 +25,11 @@
         </div>
       </b-card>
     </transition-group>
+    <div class="mt-4">
+      <h5>アイコン回転のアニメーション作ってみた</h5>
+      <p class="text-muted">クリックすると回るよ</p>
+      <b-icon-chevron-down role="button" scale="1.5" :class="isRotate ? 'up' : 'down'" @click="rotateIcon" />
+    </div>
   </div>
 </template>
 
@@ -36,6 +41,7 @@ export default Vue.extend({
     return {
       todo: '',
       todoList: [] as string[],
+      isRotate: false,
     }
   },
   methods: {
@@ -45,6 +51,9 @@ export default Vue.extend({
     },
     async removeTodo(idx: number): Promise<void> {
       this.todoList.splice(idx, 1);
+    },
+    rotateIcon(): void {
+      this.isRotate = !this.isRotate
     },
   },
 })
@@ -63,5 +72,13 @@ export default Vue.extend({
 }
 .bi-x-circle-fill:hover {
   transform: scale(1.5, 1.5);
+}
+.up {
+  transform: rotate(-180deg);
+  transition: all .4s 0s ease;
+}
+.down {
+  transform: rotate(0deg);
+  transition: all .4s 0s ease;
 }
 </style>
