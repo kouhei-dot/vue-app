@@ -15,7 +15,7 @@
     </validation-observer>
     <h2 class="mt-4">My Todo</h2>
     <transition-group name="slide-fade" tag="div">
-      <b-card class="mt-3 col-8" v-for="(todo, idx) in todoList" :key="idx">
+      <b-card class="mt-3 col-8" v-for="(todo, idx) in todoList" :key="`${todo}${idx}`">
         <div class="d-flex justify-content-between">
           <span class="font-weight-bold">
             <b-form-checkbox class="d-inline"></b-form-checkbox>
