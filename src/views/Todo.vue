@@ -15,7 +15,7 @@
     </validation-observer>
     <h2 class="mt-4">My Todo</h2>
     <transition-group name="slide-fade" tag="div">
-      <b-card class="mt-3 col-8" v-for="(todo, idx) in todoList" :key="idx">
+      <b-card class="mt-3 col-8 slide-fade-item" v-for="(todo, idx) in todoList" :key="`${todo}${idx}`">
         <div class="d-flex justify-content-between">
           <span class="font-weight-bold">
             <b-form-checkbox class="d-inline"></b-form-checkbox>
@@ -51,13 +51,20 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.slide-fade-enter {
+.slide-fade-enter, .slide-fade-leave-to {
   transform: translateY(10px);
   opacity: 0;
 }
 .slide-fade-enter-active {
-  transition: all .3s ease;
+  transition: all 1s ease;
 }
+.slide-fade-leave-active {
+  position: absolute;
+}
+.slide-fade-item {
+  transition: all .8s ease;
+}
+
 .bi-x-circle-fill {
   transition: all .2s  0s ease;
 }
