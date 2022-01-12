@@ -8,9 +8,11 @@
     <div class="mb-2 col-8 d-flex justify-content-center">
       <app-action-btn @click="search">検索</app-action-btn>
     </div>
-    <div v-for="(result, i) in searchResults" :key="i">
-      <a :href="result.url" target="_blank" rel="noopener noreferrer">{{ result.title }}</a>
-    </div>
+    <transition-group name="appear" tag="div">
+      <div v-show="!isLoading" v-for="result in searchResults" :key="result.id">
+        <a :href="result.url" target="_blank" rel="noopener noreferrer">{{ result.title }}</a>
+      </div>
+    </transition-group>
   </b-overlay>
 </template>
 
@@ -19,6 +21,7 @@ import axios, { AxiosDefaults } from 'axios';
 import Vue from 'vue'
 
 interface QiitaSearchRes {
+  id: string;
   title: string;
   url: string;
 }
@@ -58,3 +61,13 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style scoped>
+.appear-enter, .appear-leave-to {
+  transform: translateY(-10px);
+  opacity: 0;
+}
+.appear-enter-active, .appear-leave-active {
+  transition: all 1s ease;
+}
+</style>
