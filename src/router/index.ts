@@ -8,6 +8,7 @@ import Login from '@/views/Login.vue'
 import Signup from '@/views/Signup.vue'
 import Error from '@/views/Error.vue'
 import Todo from '@/views/Todo.vue'
+import Qiita from '@/views/Qiita.vue'
 
 Vue.use(VueRouter)
 
@@ -30,6 +31,11 @@ const guardFunc = async (_to: Route, _from: Route, next: NavigationGuardNext<Vue
 };
 
 const routes: Array<RouteConfig> = [
+  {
+    path: '/qiita',
+    component: Qiita,
+    beforeEnter: guardFunc,
+  },
   {
     path: '/todo',
     component: Todo,
