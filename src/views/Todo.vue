@@ -1,46 +1,81 @@
 <template>
-  <div class="col-8">
-    <h1 class="mb-4">My Todo List</h1>
-    <validation-observer v-slot="{ handleSubmit }">
-      <b-form @submit.prevent="handleSubmit(addTodo)">
-        <validation-provider name="Todo" rules="required">
-          <b-form-group label="Todo">
-            <b-form-input type="text" v-model="todo" />
-          </b-form-group>
-        </validation-provider>
-        <div class="d-flex flex-row-reverse">
-          <app-action-btn type="submit">追加</app-action-btn>
-        </div>
-      </b-form>
-    </validation-observer>
-    <h2 class="mt-4">My Todo</h2>
-    <transition-group name="slide-fade" tag="div">
-      <b-card class="mt-3 col-8 slide-fade-item" v-for="(todo, idx) in todoList" :key="`${todo}${idx}`">
-        <div class="d-flex justify-content-between">
-          <span class="font-weight-bold">
-            <b-form-checkbox class="d-inline"></b-form-checkbox>
-            {{ todo }}
-          </span>
-          <b-icon-x-circle-fill @click="removeTodo(idx)" role="button" shift-v="-3" />
-        </div>
-      </b-card>
-    </transition-group>
-  </div>
+  <b-overlay class="min-vh-100" :show="isLoading" spinner-type="grow" spinner-variant="info">
+    <div class="col-8">
+      <h1 class="mb-4">My Todo List</h1>
+      <validation-observer v-slot="{ handleSubmit }">
+        <b-form @submit.prevent="handleSubmit(addTodo)">
+          <validation-provider name="Todo" rules="required">
+            <b-form-group label="Todo">
+              <b-form-input type="text" v-model="todo" />
+            </b-form-group>
+          </validation-provider>
+          <div class="d-flex flex-row-reverse">
+            <app-action-btn type="submit">追加</app-action-btn>
+          </div>
+        </b-form>
+      </validation-observer>
+      <h2 class="mt-4">My Todo</h2>
+      <transition-group name="slide-fade" tag="div">
+        <b-card class="mt-3 col-8 slide-fade-item" v-for="(todo, idx) in todoList" :key="`${todo.todoName}${idx}`">
+          <div class="d-flex justify-content-between">
+            <span class="font-weight-bold">
+              <b-form-checkbox v-model="todo.isComplete" class="d-inline"></b-form-checkbox>
+              {{ todo.todoName }}
+            </span>
+            <b-icon-x-circle-fill @click="removeTodo(idx)" role="button" shift-v="-3" />
+          </div>
+        </b-card>
+      </transition-group>
+    </div>
+  </b-overlay>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import axios, { AxiosResponse } from 'axios';
+import { getAuth } from '@firebase/auth';
+import { firebase } from '@/plugin/firebase';
+import { Todo, TodoRes } from '@/api/TodoApi';
+import { BaseRes } from '@/api/BaseApi';
+
 export default Vue.extend({
   name: 'Todo',
   data() {
     return {
       todo: '',
-      todoList: [] as string[],
+      todoList: [] as Todo[],
+      isLoading: false,
     }
   },
+  async beforeMount() {
+    await this.getTodoList();
+  },
   methods: {
+    async getTodoList(): Promise<void> {
+      const user = getAuth(firebase);
+      try {
+        if (user.currentUser) {
+          const res: AxiosResponse<BaseRes<TodoRes>> =
+            await axios.get(`https://mk26dyc437.execute-api.ap-northeast-1.amazonaws.com/dynamoTestFunc?uid=${user.currentUser.uid}`);
+          const data = res.data;
+          this.todoList = data.Items[0].todoList;
+        } else {
+          return;
+        }
+      } catch (e) {
+        this.$bvModal.msgBoxOk('データの取得に失敗しました。', {
+          title: 'エラー',
+          okVariant: 'danger',
+        });
+      } finally {
+        this.isLoading = false;
+      }
+    },
     async addTodo(): Promise<void> {
-      this.todoList.push(this.todo);
+      this.todoList.push({
+        todoName: this.todo,
+        isComplete: false,
+      });
       this.todo = '';
     },
     async removeTodo(idx: number): Promise<void> {
