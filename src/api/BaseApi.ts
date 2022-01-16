@@ -1,5 +1,7 @@
-export interface BaseRes<T> {
+export interface BaseGetRes<T> {
+  Count: number;
   Items: T[];
+  ScannedCount: number;
 }
 
 export interface CommonProps {

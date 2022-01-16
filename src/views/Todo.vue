@@ -36,7 +36,7 @@ import axios, { AxiosResponse } from 'axios';
 import { getAuth } from '@firebase/auth';
 import { firebase } from '@/plugin/firebase';
 import { Todo, TodoRes } from '@/api/TodoApi';
-import { BaseRes } from '@/api/BaseApi';
+import { BaseGetRes } from '@/api/BaseApi';
 
 export default Vue.extend({
   name: 'Todo',
@@ -44,7 +44,7 @@ export default Vue.extend({
     return {
       todo: '',
       todoList: [] as Todo[],
-      isLoading: false,
+      isLoading: true,
     }
   },
   async beforeMount() {
@@ -55,7 +55,7 @@ export default Vue.extend({
       const user = getAuth(firebase);
       try {
         if (user.currentUser) {
-          const res: AxiosResponse<BaseRes<TodoRes>> =
+          const res: AxiosResponse<BaseGetRes<TodoRes>> =
             await axios.get(`https://mk26dyc437.execute-api.ap-northeast-1.amazonaws.com/dynamoTestFunc?uid=${user.currentUser.uid}`);
           const data = res.data;
           this.todoList = data.Items[0].todoList;
