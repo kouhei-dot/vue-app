@@ -72,11 +72,27 @@ export default Vue.extend({
       }
     },
     async addTodo(): Promise<void> {
-      this.todoList.push({
-        todoName: this.todo,
-        isComplete: false,
-      });
-      this.todo = '';
+      const user = getAuth(firebase);
+      if (user.currentUser) {
+        const params = {
+          id: user.currentUser.uid,
+          todoName: this.todo,
+        };
+        try {
+          const res = await axios.post('https://mk26dyc437.execute-api.ap-northeast-1.amazonaws.com/dynamoTestFunc', params);
+          if (res.status === 200) {
+            this.todoList.push({
+              todoName: this.todo,
+              isComplete: false,
+            });
+            this.todo = '';
+          } else {
+            this.$bvToast.toast('データの送信に失敗しました', { variant: 'danger' });
+          }
+        } catch (e) {
+          this.$bvToast.toast('データの送信に失敗しました', { variant: 'danger' });
+        }
+      }
     },
     async removeTodo(idx: number): Promise<void> {
       this.todoList.splice(idx, 1);
