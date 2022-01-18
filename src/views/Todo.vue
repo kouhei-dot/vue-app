@@ -95,7 +95,21 @@ export default Vue.extend({
       }
     },
     async removeTodo(idx: number): Promise<void> {
-      this.todoList.splice(idx, 1);
+      const user = getAuth(firebase);
+      if (user.currentUser) {
+        try {
+          const res = await axios.delete(
+            `https://mk26dyc437.execute-api.ap-northeast-1.amazonaws.com/dynamoTestFunc?uid=${user.currentUser.uid}&idx=${idx}`
+          );
+          if (res.status === 200) {
+            this.todoList.splice(idx, 1);
+          } else {
+            this.$bvToast.toast('データの送信に失敗しました', { variant: 'danger' });
+          }
+        } catch (e) {
+          this.$bvToast.toast('データの送信に失敗しました', { variant: 'danger' });
+        }
+      }
     },
   },
 })
