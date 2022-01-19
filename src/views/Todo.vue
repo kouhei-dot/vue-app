@@ -58,7 +58,7 @@ export default Vue.extend({
           const res: AxiosResponse<BaseGetRes<TodoRes>> =
             await axios.get(`https://mk26dyc437.execute-api.ap-northeast-1.amazonaws.com/dynamoTestFunc?uid=${user.currentUser.uid}`);
           const data = res.data;
-          this.todoList = data.Items[0].todoList;
+          if (data.Items.length) this.todoList = data.Items[0].todoList;
         } else {
           return;
         }
