@@ -104,10 +104,10 @@ export default Vue.extend({
           if (res.status === 200) {
             this.todoList.splice(idx, 1);
           } else {
-            this.$bvToast.toast('データの送信に失敗しました', { variant: 'danger' });
+            this.$bvToast.toast('データの削除に失敗しました', { variant: 'danger' });
           }
         } catch (e) {
-          this.$bvToast.toast('データの送信に失敗しました', { variant: 'danger' });
+          this.$bvToast.toast('データの削除に失敗しました', { variant: 'danger' });
         }
       }
     },
