@@ -1,5 +1,10 @@
 # vue-app
 
+## アーキテクチャ
+![インフラ設計](/doc/img/aws_infra_design.drawio.png)
+
+---------------------------------------
+
 ## Project setup
 ```
 npm install
@@ -32,8 +37,3 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
----------------------------------------
-
-## アーキテクチャ
-![インフラ設計](/doc/img/AWSインフラ設計.drawio.png)
