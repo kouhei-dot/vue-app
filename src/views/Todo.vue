@@ -19,7 +19,7 @@
         <b-card class="mt-3 col-8 slide-fade-item" v-for="(todo, idx) in todoList" :key="`${todo.todoName}${idx}`">
           <div class="d-flex justify-content-between">
             <span class="font-weight-bold">
-              <b-form-checkbox v-model="todo.isComplete" class="d-inline"></b-form-checkbox>
+              <b-form-checkbox v-model="todo.isComplete" class="d-inline" @input="checkStatusChg(idx)"></b-form-checkbox>
               {{ todo.todoName }}
             </span>
             <b-icon-x-circle-fill @click="removeTodo(idx)" role="button" shift-v="-3" />
@@ -108,6 +108,21 @@ export default Vue.extend({
           }
         } catch (e) {
           this.$bvToast.toast('データの削除に失敗しました', { variant: 'danger' });
+        }
+      }
+    },
+    async checkStatusChg(idx: number): Promise<void> {
+      const user = getAuth(firebase);
+      if (user.currentUser) {
+        const params = {
+          id: user.currentUser.uid,
+          isComplete: this.todoList[idx].isComplete,
+          idx: idx,
+        };
+        try {
+          axios.put('https://mk26dyc437.execute-api.ap-northeast-1.amazonaws.com/dynamoTestFunc', params);
+        } catch (e) {
+          this.$bvToast.toast('データの更新に失敗しました', { variant: 'danger' });
         }
       }
     },
