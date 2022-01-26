@@ -40,7 +40,6 @@ export default Vue.extend({
       try {
         this.isLoading = true;
         const res: AxiosDefaults<QiitaSearchRes[]> = await axios.get(`https://qiita.com/api/v2/items?query=${this.searchText}`);
-        console.log(res);
         if (res.data) {
           this.searchResults = res.data;
         }
