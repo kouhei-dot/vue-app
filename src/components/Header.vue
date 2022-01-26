@@ -1,6 +1,12 @@
 <template>
-  <div class="d-flex flex-row-reverse mb-2" v-if="isLogin">
-    <b-button variant="dark" pill class="mr-2 mt-2" @click="logout">ログアウト</b-button>
+  <div class="d-flex justify-content-between mb-4 bg-dark" v-if="isLogin">
+    <router-link to="/top" tag="h2" role="link" class="text-light ml-2">Vue.js Demo App</router-link>
+    <div class="link-container">
+      <router-link to="/bitcoin">ビットコインレート一覧</router-link>
+      <router-link to="/todo">Todoリスト</router-link>
+      <router-link to="/qiita">Qiitaの記事検索</router-link>
+      <b-button variant="dark" pill class="mr-2 my-2" @click="logout">ログアウト</b-button>
+    </div>
   </div>
 </template>
 
@@ -26,3 +32,12 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style scoped>
+.link-container > a {
+  margin: 1.5rem 0.75rem;
+}
+h2 {
+  cursor: pointer;
+}
+</style>
