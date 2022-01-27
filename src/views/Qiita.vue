@@ -3,9 +3,9 @@
     <h2>Qiitaの記事検索</h2>
     <!-- <div class="text-muted ml-3">フォームに文字を入力すると、リアルタイム検索します</div> -->
     <b-form-group label="検索" class="ml-3 mt-2">
-      <b-form-input type="text" class="col-8" v-model="searchText" />
+      <b-form-input type="text" class="col-lg-8" v-model="searchText" />
     </b-form-group>
-    <div class="mb-2 col-8 d-flex justify-content-center">
+    <div class="mb-2 col-lg-8 d-flex justify-content-center">
       <app-action-btn @click="search">検索</app-action-btn>
     </div>
     <transition-group name="appear" tag="div">

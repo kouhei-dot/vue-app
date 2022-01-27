@@ -1,5 +1,5 @@
 <template>
-  <div class="col-8 m-auto">
+  <div class="col-lg-8 m-auto">
     <b-card
       class="my-4"
       header="新規登録"

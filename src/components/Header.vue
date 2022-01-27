@@ -1,10 +1,13 @@
 <template>
   <div class="d-flex justify-content-between mb-4 bg-dark" v-if="isLogin">
-    <router-link to="/top" tag="h2" role="link" class="text-light ml-2">Vue.js Demo App</router-link>
-    <div class="link-container">
+    <router-link to="/top" :tag="isMobile ? 'h3' : 'h2'" role="link" class="text-light ml-2">Vue.js Demo App</router-link>
+    <div class="link-container" v-if="!isMobile">
       <router-link to="/bitcoin">ビットコインレート一覧</router-link>
       <router-link to="/todo">Todoリスト</router-link>
       <router-link to="/qiita">Qiitaの記事検索</router-link>
+      <b-button variant="dark" pill class="mr-2 my-2" @click="logout">ログアウト</b-button>
+    </div>
+    <div v-else>
       <b-button variant="dark" pill class="mr-2 my-2" @click="logout">ログアウト</b-button>
     </div>
   </div>
@@ -17,6 +20,16 @@ import { getAuth } from '@firebase/auth'
 
 export default Vue.extend({
   name: 'Header',
+  created() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.handleResize);
+  },
+  data() {
+    return { isMobile: false };
+  },
   methods: {
     /** ログアウト処理 */
     async logout() {
@@ -29,6 +42,13 @@ export default Vue.extend({
       // 親コンポーネントにログアウトしたことを通知する
       this.$emit('logout', 'ログアウトしました');
     },
+    async handleResize() {
+      if (window.innerWidth <= 992) {
+        this.isMobile = true;
+      } else {
+        this.isMobile = false;
+      }
+    }
   },
 })
 </script>
@@ -37,7 +57,7 @@ export default Vue.extend({
 .link-container > a {
   margin: 1.5rem 0.75rem;
 }
-h2 {
+h2, h3 {
   cursor: pointer;
 }
 </style>
