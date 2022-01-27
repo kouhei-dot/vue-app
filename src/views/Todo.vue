@@ -1,6 +1,6 @@
 <template>
   <b-overlay class="min-vh-100" :show="isLoading" spinner-type="grow" spinner-variant="info">
-    <div class="col-8">
+    <div class="col-md-8">
       <h1 class="mb-4">My Todo List</h1>
       <validation-observer v-slot="{ handleSubmit }">
         <b-form @submit.prevent="handleSubmit(addTodo)">
@@ -16,7 +16,7 @@
       </validation-observer>
       <h2 class="mt-4">My Todo</h2>
       <transition-group name="slide-fade" tag="div">
-        <b-card class="mt-3 col-8 slide-fade-item" v-for="(todo, idx) in todoList" :key="`${todo.todoName}${idx}`">
+        <b-card class="mt-3 col-md-8 slide-fade-item" v-for="(todo, idx) in todoList" :key="`${todo.todoName}${idx}`">
           <div class="d-flex justify-content-between">
             <span class="font-weight-bold">
               <b-form-checkbox v-model="todo.isComplete" class="d-inline" @input="checkStatusChg(idx)"></b-form-checkbox>
