@@ -1,7 +1,8 @@
 <template>
   <b-overlay class="min-vh-100" :show="isLoading" spinner-variant="info" spinner-type="grow">
     <h2>Qiitaの記事検索</h2>
-    <!-- <div class="text-muted ml-3">フォームに文字を入力すると、リアルタイム検索します</div> -->
+    <b-form-checkbox class="ml-3" v-model="canRealTimeSearch" switch button-variant="success">リアルタイム検索</b-form-checkbox>
+    <div v-show="canRealTimeSearch" class="text-muted ml-3">フォームに文字を入力すると、リアルタイム検索します</div>
     <b-form-group label="検索" class="ml-3 mt-2">
       <b-form-input type="text" class="col-lg-8" v-model="searchText" />
     </b-form-group>
@@ -18,7 +19,8 @@
 
 <script lang="ts">
 import axios, { AxiosDefaults } from 'axios';
-import Vue from 'vue'
+import Vue from 'vue';
+import { debounce } from 'lodash';
 
 interface QiitaSearchRes {
   id: string;
@@ -31,6 +33,7 @@ export default Vue.extend({
   data() {
     return {
       searchText: '',
+      canRealTimeSearch: false,
       searchResults: [] as QiitaSearchRes[],
       isLoading: false,
     };
@@ -54,8 +57,12 @@ export default Vue.extend({
     },
   },
   watch: {
-    searchText() {
-      console.log('input');
+    searchText(val: string) {
+      if (this.canRealTimeSearch && val) {
+        // this.debounceSearch
+      } else {
+        return;
+      }
     },
   },
 })
@@ -68,5 +75,9 @@ export default Vue.extend({
 }
 .appear-enter-active, .appear-leave-active {
   transition: all 1s ease;
+}
+::v-deep .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #28a745;
+  border-color: #28a745;
 }
 </style>
