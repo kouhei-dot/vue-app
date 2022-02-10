@@ -19,6 +19,11 @@ webAPI、Firebase、AWS組み合わせてアプリ作りました。<br/>
 ## アーキテクチャ
 ![インフラ設計](/doc/img/serverless_app_infra_design.drawio.png)
 
+## CI/CDについて
+本プロジェクトでは、Github Actionsを利用した自動ビルド・デプロイを実行してます。<br>
+プルリクがdevelopブランチにマージされることをトリガーにライブラリのインストールとかビルドが行われ、<br>
+そのままFirebase Hostingの方へデプロイされます。
+
 ## 使用技術・バージョン
 - Vue.js 2.6.11
 - Vue CLI 4.5.13
