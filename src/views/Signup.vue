@@ -79,7 +79,7 @@ export default Vue.extend({
         if (res.user) {
           const domain = document.domain;
           const port = window.location.port;
-          const url = process.env.NODE_ENV === 'production' ? `http://${domain}` : `http://${domain}:${port}`;
+          const url = process.env.NODE_ENV === 'production' ? `https://${domain}` : `http://${domain}:${port}`;
           const actionSetting = { url: url };
           await sendEmailVerification(res.user, actionSetting);
           await this.$bvModal.msgBoxOk('入力されたメールアドレス宛にメールを送信しました。', {
