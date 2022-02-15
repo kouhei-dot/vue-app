@@ -50,7 +50,6 @@ npm ci
 3. .env.localファイルの配置
 
 ---------------------------------------
-<br>
 
 ### Compiles and hot-reloads for development
 ```
