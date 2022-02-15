@@ -33,12 +33,23 @@ webAPI、Firebase、AWSを組み合わせてアプリ作りました。<br/>
 - BootstrapVue 2.21.2
 - axios 0.23.0
 
----------------------------------------
+## ローカル環境構築手順
 
-## Project setup
+### 前提
+**Node.jsをインストールしている**
+
+### 手順
+1. コマンドを実行しGitのリポジトリをクローンする
 ```
-npm install
+git clone https://github.com/kouhei-dot/vue-app.git
 ```
+2. ライブラリのインストール
+```
+npm ci
+```
+3. .env.localファイルの配置
+
+---------------------------------------
 
 ### Compiles and hot-reloads for development
 ```
