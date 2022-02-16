@@ -48,6 +48,11 @@ git clone https://github.com/kouhei-dot/vue-app.git
 npm ci
 ```
 3. .env.localファイルの配置
+4. ターミナルやコマンドプロンプトで以下のコマンドを実行
+```
+npm run serve
+```
+5. ブラウザでlocalhost:8080にアクセス
 
 ---------------------------------------
 
