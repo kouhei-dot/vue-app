@@ -32,6 +32,14 @@
           </div>
         </b-card-body>
       </b-card>
+      <b-card :img-src="require('@/assets/eden-constantino-OXmym9cuaEY-unsplash.jpg')">
+        <b-card-title>
+          <router-link to="/board">ボード型タスク管理</router-link>
+        </b-card-title>
+        <b-card-body>
+          <div>Trelloみたいな感じでタスク管理を行えるページです。</div>
+        </b-card-body>
+      </b-card>
     </b-card-group>
   </div>
 </template>
