@@ -9,6 +9,7 @@ import Signup from '@/views/Signup.vue'
 import Error from '@/views/Error.vue'
 import Todo from '@/views/Todo.vue'
 import Qiita from '@/views/Qiita.vue'
+import Board from '@/views/Board.vue'
 
 Vue.use(VueRouter)
 
@@ -44,6 +45,11 @@ const routes: Array<RouteConfig> = [
   {
     path: '/top',
     component: Main,
+    beforeEnter: guardFunc,
+  },
+  {
+    path: '/board',
+    component: Board,
     beforeEnter: guardFunc,
   },
   {

@@ -5,6 +5,7 @@
       <router-link to="/bitcoin">ビットコインレート一覧</router-link>
       <router-link to="/todo">Todoリスト</router-link>
       <router-link to="/qiita">Qiitaの記事検索</router-link>
+      <router-link to="/board">ボード型タスク管理</router-link>
       <b-button variant="dark" pill class="mr-2 my-2" @click="logout">ログアウト</b-button>
     </div>
     <div v-show="isMobile">
