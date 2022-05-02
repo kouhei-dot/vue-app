@@ -20,8 +20,6 @@ Vue.component('validationObserver', ValidationObserver);
 Vue.component('validationProvider', ValidationProvider);
 Vue.component('appActionBtn', AppActionBtn);
 
-Vue.mixin(mixin);
-
 Vue.config.productionTip = false
 
 // バリデーション言語の設定

@@ -32,12 +32,15 @@
           </div>
         </b-card-body>
       </b-card>
-      <b-card :img-src="require('@/assets/eden-constantino-OXmym9cuaEY-unsplash.jpg')">
+      <b-card v-show="!isMobile" :img-src="require('@/assets/eden-constantino-OXmym9cuaEY-unsplash.jpg')">
         <b-card-title>
           <router-link to="/board">ボード型タスク管理</router-link>
         </b-card-title>
         <b-card-body>
-          <div>Trelloみたいな感じでタスク管理を行えるページです。</div>
+          <div>
+            Trelloみたいな感じでタスク管理を行えるページです。<br>
+            <span class="text-danger">※モバイル端末非対応</span>
+          </div>
         </b-card-body>
       </b-card>
     </b-card-group>
@@ -46,8 +49,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import appMixin from '@/common/appMixin';
 
 export default Vue.extend({
   name: 'Main',
+  mixins: [appMixin],
 });
 </script>

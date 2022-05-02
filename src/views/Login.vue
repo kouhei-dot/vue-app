@@ -53,6 +53,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import appMixin from '@/common/appMixin';
 import { firebase } from '@/plugin/firebase'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
@@ -89,5 +90,6 @@ export default Vue.extend({
       }
     },
   },
+  mixins: [appMixin],
 });
 </script>

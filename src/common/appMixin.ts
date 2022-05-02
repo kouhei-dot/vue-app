@@ -6,7 +6,15 @@ export default Vue.extend({
   data() {
     return {
       isLogin: false,
+      isMobile: false,
     };
+  },
+  created() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.handleResize);
   },
   beforeMount() {
     getAuth(firebase).onAuthStateChanged((user) => {
@@ -16,5 +24,14 @@ export default Vue.extend({
         this.isLogin = false;
       }
     });
+  },
+  methods: {
+    async handleResize() {
+      if (window.innerWidth <= 992) {
+        this.isMobile = true;
+      } else {
+        this.isMobile = false;
+      }
+    },
   },
 });
