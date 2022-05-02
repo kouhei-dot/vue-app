@@ -16,21 +16,12 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import appMixin from '@/common/appMixin';
 import { firebase } from '@/plugin/firebase'
 import { getAuth } from '@firebase/auth'
 
 export default Vue.extend({
   name: 'Header',
-  created() {
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
-  },
-  destroyed() {
-    window.removeEventListener('resize', this.handleResize);
-  },
-  data() {
-    return { isMobile: false };
-  },
   methods: {
     /** ログアウト処理 */
     async logout() {
@@ -43,14 +34,8 @@ export default Vue.extend({
       // 親コンポーネントにログアウトしたことを通知する
       this.$emit('logout', 'ログアウトしました');
     },
-    async handleResize() {
-      if (window.innerWidth <= 992) {
-        this.isMobile = true;
-      } else {
-        this.isMobile = false;
-      }
-    }
   },
+  mixins: [appMixin],
 })
 </script>
 
